@@ -3,26 +3,28 @@
 // Apply what you learn here to other interactive views if necessary.
 
 var FormView = {
-
   $form: $('form'),
 
-  initialize: function() {
+  initialize: function () {
     FormView.$form.on('submit', FormView.handleSubmit);
   },
 
-  handleSubmit: function(event) {
+  handleSubmit: function (event) {
     // Stop the browser from submitting the form
     event.preventDefault();
-
+    console.log(event);
     // TODO: Currently, this is all handleSubmit does.
     // Make this function actually send a message to the Parse API.
-  
-    console.log('click!');
+    var newMessage = {
+      username: App.username,
+      roomname: Rooms.selected,
+      text: $('input').val(),
+    };
+    Parse.create(newMessage, (val) => console.log(val));
   },
 
-  setStatus: function(active) {
+  setStatus: function (active) {
     var status = active ? 'true' : null;
     FormView.$form.find('input[type=submit]').attr('disabled', status);
-  }
-
+  },
 };
